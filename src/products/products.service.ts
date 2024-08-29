@@ -88,7 +88,6 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
   }
 
   async validateProducts(ids: number[]) {
-    console.log('🚀 ~ ProductsService ~ validateProducts ~ ids:', ids);
     const filterdIds = Array.from(new Set(ids));
     const products = await this.product.findMany({
       where: {
@@ -96,11 +95,6 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
         available: true,
       },
     });
-    console.log(
-      '🚀 ~ ProductsService ~ validateProducts ~ products:',
-      products,
-    );
-
     if (products.length !== filterdIds.length) {
       throw new RpcException({
         message: 'Some products are not available',
